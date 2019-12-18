@@ -10,10 +10,13 @@
 </head>
 <body>
 <div id="container">
-    <h3> user login</h3>
-    <form action="login" method="get">
-        <input type="text" name="userID"><br/>
-        <input type="text" name="userPwd"><br/>
+    <h3> add a book to list</h3>
+    <form action="addBooks" method="get">
+
+        <input type="text" name="idBooks"><br/>
+        <input type="text" name="bookAuthor"><br/>
+        <input type="text" name="bookName"><br/>
+        <input type="text" name="bookPublisher"><br/>
 
         <input type="submit" value="submit">
     </form>

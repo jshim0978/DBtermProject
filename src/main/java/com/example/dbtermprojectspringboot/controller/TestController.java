@@ -1,6 +1,7 @@
 package com.example.dbtermprojectspringboot.controller;
 
 import com.example.dbtermprojectspringboot.domain.User;
+import com.example.dbtermprojectspringboot.repository.BookRepository;
 import com.example.dbtermprojectspringboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/test")
 public class TestController {
     @Autowired
-    public UserRepository userRepository;
+    private UserRepository userRepository;
+    @Autowired
+    private BookRepository bookRepository;
 
     @PostMapping("/save")
     public int data(@RequestBody User user) {
@@ -22,7 +25,7 @@ public class TestController {
     }
 
     @PostMapping("/getUser")
-    public User getUserById(@RequestParam("userID") String userId){
+    public User getUserById(@RequestParam("userID") String userId) {
         return this.userRepository.getUserObjById(userId);
     }
 }

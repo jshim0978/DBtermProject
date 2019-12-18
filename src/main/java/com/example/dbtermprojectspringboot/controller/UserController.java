@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/user")
-public class MainController {
+public class UserController {
     @Autowired
     private UserRepository userRepository;
 
@@ -44,12 +44,16 @@ public class MainController {
                         @RequestParam("userPwd") String userPwd,
                         HttpSession httpSession) {
         httpSession.setAttribute("id", userID); //session 생성
-        if (this.userRepository.getUserObjById(userID) != null)
-        {
-            return "redirect:/user/main"; // 여기 페이지로 이동
+        try {
+            if (this.userRepository.getUserObjById(userID) != null) {
+                return "redirect:/user/main"; // 여기 페이지로 이동
+            }
+        } catch (Exception e) {
+            return "redirect:/user/errorPage"; //여기 페이지로 이동
         }
         return "redirect:/user/errorPage"; //여기 페이지로 이동
     }
+
 
     @GetMapping("/insertUser") // db접근 전용 post/get
     public String insertUser(
@@ -59,10 +63,15 @@ public class MainController {
             @RequestParam("userEmail") String userEmail,
             @RequestParam("userPhone") String userPhone,
             @RequestParam("userType") String userType) {
-        if (this.userRepository.save(new User(userID, userPwd, userName, userEmail, userPhone, userType)) != 0) {
-            return "redirect:/user/main"; // 여기 페이지로 이동
-        }
+        try {
+            if (this.userRepository.save(new User(userID, userPwd, userName, userEmail, userPhone, userType)) != 0) {
+                return "redirect:/user/loginPage"; // 여기 페이지로 이동
+            }
+        } catch (Exception e) {
+            return "redirect:/user/errorPage"; //여기 페이지로 이동
 
+        }
         return "redirect:/user/errorPage"; //여기 페이지로 이동
     }
 }
+
