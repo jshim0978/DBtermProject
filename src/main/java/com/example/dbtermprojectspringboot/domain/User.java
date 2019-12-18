@@ -1,7 +1,7 @@
 package com.example.dbtermprojectspringboot.domain;
 
 public class User {
-    private String userId;
+    private String userID;
     private String userPwd;
     private String userName;
     private String userEmail;
@@ -11,8 +11,8 @@ public class User {
     public User() {
     }
 
-    public User(String userId, String userPwd, String userName, String userEmail, String userPhone, String userType) {
-        this.userId = userId;
+    public User(String userID, String userPwd, String userName, String userEmail, String userPhone, String userType) {
+        this.userID = userID;
         this.userPwd = userPwd;
         this.userName = userName;
         this.userEmail = userEmail;
@@ -20,8 +20,8 @@ public class User {
         this.userType = userType;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserID() {
+        return userID;
     }
 
     public String getUserPwd() {
@@ -44,8 +44,8 @@ public class User {
         return userType;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public void setUserPwd(String userPwd) {

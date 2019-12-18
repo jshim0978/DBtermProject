@@ -14,13 +14,35 @@ public class UserRepository {
     public int save(User user) {
         return this.jdbcTemplate.update(
                 "insert user values(?,?,?,?,?,?)",
-                new Object[]{user.getUserId(),
+                new Object[]{user.getUserID(),
                         user.getUserPwd(),
                         user.getUserName(),
                         user.getUserEmail(),
                         user.getUserPhone(),
                         user.getUserType()
                 }
+        );
+    }
+
+    public int delete(String userID) {
+        return this.jdbcTemplate.update(
+                "delete from user where userID=?",
+                userID
+        );
+    }
+
+    public User getUserObjById(String userId){
+        return this.jdbcTemplate.queryForObject(
+                "select * from user c where c.userID=?",
+                (rs, rowNum)->
+                    new User(rs.getString("userID"),
+                            rs.getString("userPwd"),
+                            rs.getString("userName"),
+                            rs.getString("userEmail"),
+                            rs.getString("userPhone"),
+                            rs.getString("userType"))
+                ,
+                userId
         );
     }
 }

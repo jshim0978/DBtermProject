@@ -9,5 +9,10 @@
 </head>
 <body>
 <h1>Hello</h1>
+    <%
+        Object obj = session.getAttribute("id");
+        out.print(obj);
+        session.removeAttribute("id");
+    %>
 </body>
 </html>
