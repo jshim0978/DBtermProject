@@ -7,7 +7,7 @@
     <title>도서 검색</title>
 </head>
 <body>
-<form action="bookSearch" method="GET">
+<form action="bookSearchResult" method="GET">
     <div class="ex1">
         <div><span>검색 설정</span><br>
             <input type="radio" name="type" value="isbn" checked>ISBN

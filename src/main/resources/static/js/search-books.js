@@ -2,7 +2,7 @@ function goToUserMainPage() {
     location.href = "/user/main";
 }
 
-function goToSearhPage() {
+function goToSearchPage() {
     location.href = "/book/bookSearchPage";
 }
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,20 +37,48 @@ public class BookController {
         return "book-search-page";
     }
 
-//    @GetMapping("/addBooks") // db접근 전용 post/get
-//    public String addBooks(
-//            @RequestParam("idBooks") int idBooks,
-//            @RequestParam("bookAuthor") String bookAuthor,
-//            @RequestParam("bookName") String bookName,
-//            @RequestParam("bookPublisher") String bookPublisher) {
-//        try {
-//            if (this.save(new Books(idBooks, bookAuthor, bookName, bookPublisher)) != 0) {
-//                return "redirect:/user/bookList"; // 여기 페이지로 이동
-//            }
-//        } catch (Exception e) {
-//            return "redirect:/user/errorPage"; //여기 페이지로 이동
-//
-//        }
-//        return "redirect:/user/errorPage"; //여기 페이지로 이동
-//    }
+
+    @GetMapping("/bookSearchResult")
+    public String bookSearchResult(@RequestParam("type") String type
+            , @RequestParam("data") String data
+            , Model model, HttpSession httpSession) {
+        Object id = httpSession.getAttribute("id");
+
+        if (id == null) {
+            return "redirect:../user/error-page";
+        }
+
+        List<Book> books;
+        if (type.equals("idBooks")) {
+            int intData = Integer.parseInt(data);
+            Book resultBook = this.bookRepository.searchBookByIsbn(intData);
+            books = new ArrayList<>();
+            if (resultBook != null) {
+                books.add(resultBook);
+            }
+        } else {
+
+            books = this.bookRepository.searchBookByTitle(data);
+        }
+        model.addAttribute("books", books);
+
+        return "book-search-result-page";
+    }
+
+    @GetMapping("/addBooks") // db접근 전용 post/get
+    public String addBooks(
+            @RequestParam("idBooks") int idBooks,
+            @RequestParam("bookAuthor") String bookAuthor,
+            @RequestParam("bookName") String bookName,
+            @RequestParam("bookPublisher") String bookPublisher) {
+        try {
+            if (this.save(new Books(idBooks, bookAuthor, bookName, bookPublisher)) != 0) {
+                return "redirect:/user/bookList"; // 여기 페이지로 이동
+            }
+        } catch (Exception e) {
+            return "redirect:/user/errorPage"; //여기 페이지로 이동
+
+        }
+        return "redirect:/user/errorPage"; //여기 페이지로 이동
+    }
 }
