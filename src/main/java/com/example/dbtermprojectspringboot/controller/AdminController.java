@@ -32,7 +32,7 @@ public class AdminController {
         return "admin-enroll-page";
     }
 
-    @GetMapping("/enroll")
+    @GetMapping("/enrollBook")
     public String enrollBook(@RequestParam("idBooks") int idBooks,
                              @RequestParam("bookAuthor") String bookAuthor,
                              @RequestParam("bookName") String bookName,
@@ -54,7 +54,7 @@ public class AdminController {
         return "admin-modify-page";
     }
 
-    @GetMapping("/modify")
+    @GetMapping("/modifyBook")
     public String modifyBook(@RequestParam("idBooks") int idBooks,
                              @RequestParam("bookAuthor") String bookAuthor,
                              @RequestParam("bookName") String bookName,
@@ -76,7 +76,7 @@ public class AdminController {
         return "admin-remove-page";
     }
 
-    @GetMapping("/remove")
+    @GetMapping("/removeBook")
     public String removeBook(@RequestParam("idBooks") int idBooks) {
         try {
             if (this.adminRepository.removeBook(idBooks) != 0) {
