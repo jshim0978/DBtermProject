@@ -14,7 +14,9 @@
 
     <button onclick="location='enrollPage'">enroll</button>
     <button onclick="location='modifyPage'">modify</button>
-    <button onclick="location='removePage'">remove</button>
+    <button onclick="location='removePage'">remove</button></br>
+
+    <button onclick="location='returnPage'">approve return</button>
 
 </div>
 <script type="text/javascript" src="/resources/js/main-user.js">

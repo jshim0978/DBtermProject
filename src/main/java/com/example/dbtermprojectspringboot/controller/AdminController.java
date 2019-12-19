@@ -17,17 +17,12 @@ public class AdminController {
     @Autowired
     private AdminRepository adminRepository;
 
-    @GetMapping("/main")
-    public String main() {
-        return "hello";
-    }
-
     @GetMapping("/errorPage")
     public String error() {
         return "error/error-page";
     }
 
-    @GetMapping("/adminPage")
+    @GetMapping("/main")
     public String adminMainPage() {
         return "admin-main-page";
     }
@@ -85,6 +80,24 @@ public class AdminController {
     public String removeBook(@RequestParam("idBooks") int idBooks) {
         try {
             if (this.adminRepository.removeBook(idBooks) != 0) {
+                return "redirect:/admin/main"; // 여기 페이지로 이동
+            }
+        } catch (Exception e) {
+            return "redirect:/admin/errorPage"; //여기 페이지로 이동
+        }
+        return "redirect:/admin/errorPage"; //여기 페이지로 이동
+    }
+
+    //remove book
+    @GetMapping("/returnPage")
+    public String returnPage() {
+        return "admin-return-page";
+    }
+
+    @GetMapping("/return")
+    public String approveReturn(@RequestParam("idborrowBooks") int idborrowBooks) {
+        try {
+            if (this.adminRepository.approveReturn(idborrowBooks) != 0) {
                 return "redirect:/admin/main"; // 여기 페이지로 이동
             }
         } catch (Exception e) {

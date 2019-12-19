@@ -13,10 +13,12 @@ public class AdminRepository {
     public int enrollBook(Book book) {
         return this.jdbcTemplate.update(
                 "insert books values(?,?,?,?)",
-                book.getIdBooks(),
+                new Object[]{book.getIdBooks(),
                 book.getBookAuthor(),
                 book.getBookName(),
-                book.getBookPublisher());
+                book.getBookPublisher()
+                }
+        );
     }
 
     public int modifyBook(Book book) {
@@ -35,6 +37,15 @@ public class AdminRepository {
         return this.jdbcTemplate.update(
                 "delete from books where idBooks=?",
                 idBooks
+        );
+    }
+
+    public int approveReturn(int idborrowBooks) {
+        return this.jdbcTemplate.update(
+                "delete from returnapplication where idborrowBooks=?",
+                idborrowBooks
+        ) & this.jdbcTemplate.update(
+                "update borrowbooks set isReturned=1"
         );
     }
 }
