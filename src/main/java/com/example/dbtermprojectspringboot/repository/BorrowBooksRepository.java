@@ -1,14 +1,18 @@
 package com.example.dbtermprojectspringboot.repository;
 
+import com.example.dbtermprojectspringboot.domain.Book;
 import com.example.dbtermprojectspringboot.domain.BorrowBooks;
+import com.example.dbtermprojectspringboot.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public class BorrowBooksRepository {
+    static int bbid=0;
 
     @Autowired //객체를 자동으로 만들어줌
     private JdbcTemplate jdbcTemplate;
@@ -63,6 +67,33 @@ public class BorrowBooksRepository {
                         rs.getString("borrowbooks.borrowedDate"),
                         rs.getString("borrowbooks.expectedReturn"),
                         rs.getString("borrowbooks.isReturned"))
+        );
+    }
+
+    public int borrowBook(Book book, String userID, String userType) {
+        int num=0;
+        LocalDate date = LocalDate.now();
+        String borrowedDate = String.valueOf(date.getYear()) + String.valueOf(date.getMonthValue()) + String.valueOf(date.getDayOfMonth());
+        String returnDate = date.plusDays(Integer.parseInt(userType)).toString();
+        if((num=this.jdbcTemplate.update("select numberOfBooks from booklist where idBooks=?",
+                book.getIdBooks())) == 0)
+            return 0;
+
+        return this.jdbcTemplate.update(
+                "update booklist" +
+                "set numberOfBooks=?" +
+                "where idBooks=?",
+                (num-1),
+                book.getIdBooks()
+                ) & this.jdbcTemplate.update(
+                        "insert borrowbooks values(?,?,?,?,?,?)",
+                new Object[]{++bbid,
+                        book.getIdBooks(),
+                        userID,
+                        borrowedDate,
+                        returnDate,
+                        0
+                }
         );
     }
 }

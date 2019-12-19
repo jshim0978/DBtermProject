@@ -14,11 +14,12 @@
     <h1> Admin main page </h1>
 
     <!--
-        <button onclick="location='/book/allBookListPage'">book list</button></br>
+        <button onclick="location='/book/adminBookListPage'">book list</button></br>
         <button onclick="location='modifyPage'">modify</button>
         <button onclick="location='removePage'">remove</button></br>
         <button onclick="location='returnPage'">approve return</button>
     -->
+    <button onclick="location='manageUser'">User List</button></br>
 
     <h3> Books
         <button onclick="location='enrollPage'">Add new book</button>

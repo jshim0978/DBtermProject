@@ -1,9 +1,12 @@
 package com.example.dbtermprojectspringboot.repository;
 
+import com.example.dbtermprojectspringboot.domain.Book;
 import com.example.dbtermprojectspringboot.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class UserRepository {
@@ -43,6 +46,19 @@ public class UserRepository {
                             rs.getString("userType"))
                 ,
                 userId
+        );
+    }
+
+    public List<User> takeAllUsers() {
+        return this.jdbcTemplate.query(
+                "select * from user",
+                (rs, rowNum) -> new User(
+                        rs.getString("userID"),
+                        rs.getString("userPwd"),
+                        rs.getString("userName"),
+                        rs.getString("userEmail"),
+                        rs.getString("userPhone"),
+                        rs.getString("userType"))
         );
     }
 }

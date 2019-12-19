@@ -32,7 +32,7 @@ public class BookRepository {
 
     public Book getBookObjById(int idBooks) {
         return this.jdbcTemplate.queryForObject(
-                "selext* from books c where c.idBooks = ? ",
+                "select* from books c where c.idBooks = ? ",
                 (rs, rowNum) ->
                         new Book(rs.getInt("idBooks"),
                                 rs.getString("bookAuthor"),
@@ -50,6 +50,18 @@ public class BookRepository {
                         rs.getString("bookAuthor"),
                         rs.getString("bookName"),
                         rs.getString("bookPublisher"))
+        );
+    }
+
+    public List<Book> takeUserBooks(String userID) {
+        return this.jdbcTemplate.query(
+                "select * from borrowbooks where userID=?",
+                (rs, rowNum) -> new Book(
+                        rs.getInt("idBooks"),
+                        rs.getString("bookAuthor"),
+                        rs.getString("bookName"),
+                        rs.getString("bookPublisher")),
+                userID
         );
     }
 }

@@ -27,8 +27,17 @@ public class BookController {
         } catch (Exception e) {
             model.addAttribute("books", new ArrayList<>());
         }
-
         return "bookList-page";
+    }
+    @GetMapping("/adminBookListPage")
+    public String adminBookListPage(Model model) {
+        try {
+            List<Book> result = this.bookRepository.takeAllBooks();
+            model.addAttribute("books", result);
+        } catch (Exception e) {
+            model.addAttribute("books", new ArrayList<>());
+        }
+        return "admin-bookList-page";
     }
     @GetMapping("/bookSearchPage")
     public String bookSearchPage(Model model) {
