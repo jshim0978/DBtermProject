@@ -21,36 +21,36 @@ public class BorrowBooksController {
     @Autowired
     private BorrowBooksRepository borrowBooksRepository;
 
-    @GetMapping("/allReturnListPage")
-    public String bookReturnPage(Model model) {
-        try {
-            List<BorrowBooks> result = this.borrowBooksRepository.takeAllReturnBooks();
-            model.addAttribute("borrowbooks", result);
-        } catch (Exception e) {
-            model.addAttribute("borrowbooks", new ArrayList<>());
-        }
+//    @GetMapping("/allReturnListPage")
+//    public String bookReturnPage(Model model) {
+//        try {
+//            List<BorrowBooks> result = this.borrowBooksRepository.takeAllReturnBooks();
+//            model.addAttribute("borrowbooks", result);
+//        } catch (Exception e) {
+//            model.addAttribute("borrowbooks", new ArrayList<>());
+//        }
+//
+//        return "return-bookList-page";
+//    }
 
-        return "return-bookList-page";
-    }
-
-    @GetMapping("/borrowBook")
-    public String borrowBook(@RequestParam("idBooks") int idBooks,
-                             @RequestParam("bookAuthor") String bookAuthor,
-                             @RequestParam("bookName") String bookName,
-                             @RequestParam("bookPublisher") String bookPublisher,
-                             @RequestParam("userID") String userID,
-                             @RequestParam("userType") String userType
-                             ) {
-        try {
-            Book book = new Book(idBooks, bookAuthor, bookName, bookPublisher);
-            if (this.borrowBooksRepository.borrowBook(book, userID, userType) != 0) {
-                return "redirect:/admin/main"; // 여기 페이지로 이동
-            }
-        } catch (Exception e) {
-            return "redirect:/admin/errorPage"; //여기 페이지로 이동
-        }
-        return "redirect:/admin/errorPage"; //여기 페이지로 이동
-    }
+//    @GetMapping("/borrowBook")
+//    public String borrowBook(@RequestParam("idBooks") int idBooks,
+//                             @RequestParam("bookAuthor") String bookAuthor,
+//                             @RequestParam("bookName") String bookName,
+//                             @RequestParam("bookPublisher") String bookPublisher,
+//                             @RequestParam("userID") String userID,
+//                             @RequestParam("userType") String userType
+//                             ) {
+//        try {
+//            Book book = new Book(idBooks, bookAuthor, bookName, bookPublisher);
+//            if (this.borrowBooksRepository.borrowBook(book, userID, userType) != 0) {
+//                return "redirect:/admin/main"; // 여기 페이지로 이동
+//            }
+//        } catch (Exception e) {
+//            return "redirect:/admin/errorPage"; //여기 페이지로 이동
+//        }
+//        return "redirect:/admin/errorPage"; //여기 페이지로 이동
+//    }
 
 //    @GetMapping("/addBooks") // db접근 전용 post/get
 //    public String addBooks(

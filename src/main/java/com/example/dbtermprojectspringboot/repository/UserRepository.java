@@ -49,6 +49,13 @@ public class UserRepository {
         );
     }
 
+    public String getTypeById(String customerId) throws Exception {
+        return convertType(jdbcTemplate.queryForObject(
+                "select type from customer c where c.id=?",
+                new Object[]{customerId}, String.class));
+    }
+
+
     public List<User> takeAllUsers() {
         return this.jdbcTemplate.query(
                 "select * from user",
@@ -61,4 +68,47 @@ public class UserRepository {
                         rs.getString("userType"))
         );
     }
+
+    public String convertType(String type) {
+        if(type.equals("10"))
+            return "std";
+        if(type.equals("30"))
+            return "grad";
+        if(type.equals("60"))
+            return "fac";
+        return "admin";
+    }
+    public int insert(User user) throws Exception {
+        return this.jdbcTemplate.update(
+                "insert customer values(?, ?, ?, ?, ?, ?)",
+                user.getUserID(),
+                user.getUserPwd(),
+                user.getUserName(),
+                user.getUserEmail(),
+                user.getUserPhone(),
+                user.getUserType()
+        );
+    }
+    public int update(String userID, User newInfo) throws Exception {
+        return this.jdbcTemplate.update(
+                "update customer SET " +
+                        "password=?, " +
+                        "email=?, " +
+                        "name=?, " +
+                        "phone_number=?, " +
+                        "type=? " +
+                        "WHERE id=?",
+                newInfo.getUserPwd(),
+                newInfo.getUserName(),
+                newInfo.getUserEmail(),
+                newInfo.getUserPhone(),
+                newInfo.getUserType(),
+                userID
+        );
+    }
+    public boolean isAdmin(String userID) throws Exception {
+        String type = getTypeById(userID);
+        return type.equals("admin");
+    }
+
 }

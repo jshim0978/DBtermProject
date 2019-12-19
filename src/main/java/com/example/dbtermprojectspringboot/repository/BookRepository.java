@@ -27,6 +27,7 @@ public class BookRepository {
         );
     }
 
+
     public int delete(int idBooks) {
         return this.jdbcTemplate.update(
                 "delete from books where idBooks = ?",
@@ -112,4 +113,10 @@ public class BookRepository {
         );
     }
 
+    public int setBookToBorrowed(String isbn) throws Exception{
+        return this.jdbcTemplate.update(
+                "update teamproject.book set is_borrow=1 where is_borrow=0 and book.isbn=?;",
+                isbn
+        );
+    }
 }

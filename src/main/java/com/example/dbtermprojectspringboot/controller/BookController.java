@@ -114,4 +114,23 @@ public class BookController {
         // 실패
         return "redirect:borrowErrorHandlerPage";
     }
+
+//    @GetMapping("/makeBorrow")
+//    public String borrowBook(@RequestParam("bookIsbn") String isbn,
+//                             @RequestParam("bookTitle") String title,
+//                             HttpSession httpSession) {
+//        Object id = httpSession.getAttribute("id");
+//        if (id == null) {
+//            return "redirect:../user/loginError";
+//        }
+//
+//        int result = this.borrowService.insertBorrow(Borrow.builder().title(title).isbn(isbn).customerId((String) id).build());
+//        if (result != 0) {
+//            return "redirect:bookSearchPage";
+//        }
+//
+//        return "redirect:borrowErrorHandlerPage"; // error page 작성
+//    }
+
+
 }
