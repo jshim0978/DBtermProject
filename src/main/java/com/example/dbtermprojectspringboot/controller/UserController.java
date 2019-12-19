@@ -1,8 +1,11 @@
 package com.example.dbtermprojectspringboot.controller;
 
+import com.example.dbtermprojectspringboot.domain.Book;
 import com.example.dbtermprojectspringboot.domain.User;
+import com.example.dbtermprojectspringboot.repository.BookRepository;
 import com.example.dbtermprojectspringboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,16 +13,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+    private BookRepository bookRepository;
 
     @GetMapping("/main")
-    public String main() {
+    public String main(Model model, HttpServletRequest request) {
+        try {
+            String userID = (String)request.getAttribute("userID");
+            List<Book> result = this.bookRepository.takeUserBooks(userID);
+            model.addAttribute("books", result);
+        } catch (Exception e) {
+            model.addAttribute("books", new ArrayList<>());
+        }
+
         return "user-main-page";
     }
 
@@ -55,10 +70,11 @@ public class UserController {
     @GetMapping("/login")
     public String login(@RequestParam("userID") String userID,
                         @RequestParam("userPwd") String userPwd,
-                        HttpSession httpSession) {
+                        HttpSession httpSession, HttpServletRequest request) {
         httpSession.setAttribute("id", userID); //session 생성
         try {
             if (this.userRepository.getUserObjById(userID) != null) {
+                request.setAttribute("userID", userID);
                 return "redirect:/user/main"; // 여기 페이지로 이동
             }
         } catch (Exception e) {

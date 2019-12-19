@@ -33,6 +33,7 @@
 <div>
     <input type="button" onclick="goToEditProfilePage()" name="profile" value="edit profile">
 <%--  move to edit profile page --%>
+    <button onclick="location='/book/allBookListPage'">all books</button>
     <input type="button" onclick="goToSearchBookPage()" name="search" value="search book">
 </div>
 <%-- move to search book page --%>

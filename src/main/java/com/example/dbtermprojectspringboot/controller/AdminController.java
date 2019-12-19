@@ -1,8 +1,10 @@
 package com.example.dbtermprojectspringboot.controller;
 
 import com.example.dbtermprojectspringboot.domain.Book;
+import com.example.dbtermprojectspringboot.domain.User;
 import com.example.dbtermprojectspringboot.repository.AdminRepository;
 import com.example.dbtermprojectspringboot.repository.BookRepository;
+import com.example.dbtermprojectspringboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,10 @@ import java.util.List;
 public class AdminController {
     @Autowired
     private AdminRepository adminRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private BookRepository bookRepository;
 
     @GetMapping("/errorPage")
     public String error() {
@@ -25,8 +31,6 @@ public class AdminController {
     }
 
 
-    @Autowired
-    private BookRepository bookRepository;
 
     @GetMapping("/main")
     public String bookListPage(Model model) {
@@ -117,6 +121,53 @@ public class AdminController {
         try {
             if (this.adminRepository.approveReturn(idborrowBooks) != 0) {
                 return "redirect:/admin/main"; // 여기 페이지로 이동
+            }
+        } catch (Exception e) {
+            return "redirect:/admin/errorPage"; //여기 페이지로 이동
+        }
+        return "redirect:/admin/errorPage"; //여기 페이지로 이동
+    }
+
+    @GetMapping("/manageUser")
+    public String userManagePage(Model model) {
+        try {
+            List<User> result = this.userRepository.takeAllUsers();
+            model.addAttribute("users", result);
+        } catch (Exception e) {
+            model.addAttribute("users", new ArrayList<>());
+        }
+
+        return "admin-user-page";
+    }
+
+    @GetMapping("/editUserPage")
+    public String editUserPage(@RequestParam("userID") String userID) {
+        return "admin-editUser-page";
+    }
+
+    @GetMapping("/editUser")
+    public String editUser(@RequestParam("userID") String userID,
+                             @RequestParam("userPwd") String userPwd,
+                             @RequestParam("userName") String userName,
+                             @RequestParam("userEmail") String userEmail,
+                             @RequestParam("userPhone") String userPhone,
+                             @RequestParam("userType") String userType) {
+        try {
+
+            if (this.adminRepository.editUser(new User(userID, userPwd, userName, userEmail, userPhone, userType)) != 0) {
+                return "redirect:/admin/manageUser"; // 여기 페이지로 이동
+            }
+        } catch (Exception e) {
+            return "redirect:/admin/errorPage"; //여기 페이지로 이동
+        }
+        return "redirect:/admin/errorPage"; //여기 페이지로 이동
+    }
+
+    @GetMapping("/removeUser")
+    public String removeUser(@RequestParam("userID") String userID) {
+        try {
+            if (this.adminRepository.removeUser(userID) != 0) {
+                return "redirect:/admin/manageUser"; // 여기 페이지로 이동
             }
         } catch (Exception e) {
             return "redirect:/admin/errorPage"; //여기 페이지로 이동

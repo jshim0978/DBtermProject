@@ -11,30 +11,37 @@
 <body>
 <div id="container">
     <h3> booklist</h3>
+    <table>
+    <tr>
+        <th>Borrow ID</th>
+        <th>ISBN</th>
+        <th>User ID</th>
+        <th>Borrowed at</th>
+        <th>Return at</th>
+        </tr>
 <%--    delete link, update link url 변경해야함--%>
     <c:forEach var="borrowbooks" items="${borrowbooks}">
-        <c:url var="deleteLink" value="/book/변경해야함">
+        <c:url var="deleteLink" value="/book/returnOK">
             <c:param name="idBooks" value="${borrowbooks.idBooks}"/>
         </c:url>
         <c:url var="updateLink" value="/book/takeAllReturnBooks">
             <c:param name="idBooks" value="${borrowbooks.idBooks}"/>
         </c:url>
+        <tr>
         <div>
-            <span>${borrowbooks.idborrowBooks}</span>
-            <span>${borrowbooks.idBooks}</span>
-            <span>${borrowbooks.userID}</span>
-            <span>${borrowbooks.borrowedDate} </span>
-            <span>${borrowbooks.expectedReturn}</span>
-            <span>${borrowbooks.isReturned}</span>
-            <span>
+            <td><span>${borrowbooks.idborrowBooks}</span></td>
+            <td><span>${borrowbooks.idBooks}</span></td>
+            <td><span>${borrowbooks.userID}</span></td>
+            <td><span>${borrowbooks.borrowedDate} </span></td>
+            <td><span>${borrowbooks.expectedReturn}</span></td>
+            <td><span>  | 
                 <a href="${deleteLink}"
-                   onclick="if (!(confirm('책을 목록에서 삭제 하시겠습니까?'))) return false">제거</a>
-                |
-                <a href="${updateLink}"
-                   onclick="if (!(confirm('책 정보 수정 화면으로 넘어가시겠습니까?'))) return false">수정</a>
-            </span>
+                   onclick="if (!(confirm('반납을 승인하시겠습니까?'))) return false">승인</a>
+            </span></td>
         </div>
+        </tr>
     </c:forEach>
+    </table>
 </div>
 </script>
 </body>

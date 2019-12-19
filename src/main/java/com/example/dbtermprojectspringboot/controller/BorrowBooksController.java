@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,25 @@ public class BorrowBooksController {
         }
 
         return "return-bookList-page";
+    }
+
+    @GetMapping("/borrowBook")
+    public String borrowBook(@RequestParam("idBooks") int idBooks,
+                             @RequestParam("bookAuthor") String bookAuthor,
+                             @RequestParam("bookName") String bookName,
+                             @RequestParam("bookPublisher") String bookPublisher,
+                             @RequestParam("userID") String userID,
+                             @RequestParam("userType") String userType
+                             ) {
+        try {
+            Book book = new Book(idBooks, bookAuthor, bookName, bookPublisher);
+            if (this.borrowBooksRepository.borrowBook(book, userID, userType) != 0) {
+                return "redirect:/admin/main"; // 여기 페이지로 이동
+            }
+        } catch (Exception e) {
+            return "redirect:/admin/errorPage"; //여기 페이지로 이동
+        }
+        return "redirect:/admin/errorPage"; //여기 페이지로 이동
     }
 
 //    @GetMapping("/addBooks") // db접근 전용 post/get
