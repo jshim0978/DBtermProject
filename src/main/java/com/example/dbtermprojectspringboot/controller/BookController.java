@@ -30,6 +30,11 @@ public class BookController {
 
         return "bookList-page";
     }
+    @GetMapping("/bookSearchPage")
+    public String bookSearchPage(Model model) {
+
+        return "book-search-page";
+    }
 
 //    @GetMapping("/addBooks") // db접근 전용 post/get
 //    public String addBooks(

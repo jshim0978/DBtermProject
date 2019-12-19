@@ -13,10 +13,10 @@
     <h3> booklist</h3>
     <%--    delete link, update link url 변경해야함--%>
     <c:forEach var="book" items="${books}">
-        <c:url var="deleteLink" value="/book/변경해야함">
+        <c:url var="deleteLink" value="/book/deleteBookfromList">
             <c:param name="idBooks" value="${book.idBooks}"/>
         </c:url>
-        <c:url var="updateLink" value="/book/변경해야함">
+        <c:url var="updateLink" value="/book/updateBookfromList">
             <c:param name="idBooks" value="${book.idBooks}"/>
         </c:url>
         <div>
