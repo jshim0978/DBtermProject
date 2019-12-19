@@ -18,6 +18,6 @@
         <br/>
     </form>
 </div>
-</script>
+
 </body>
 </html>

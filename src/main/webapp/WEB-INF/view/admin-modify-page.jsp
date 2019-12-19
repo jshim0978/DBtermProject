@@ -22,6 +22,6 @@
         <input type="submit" value="Modify">
     </form>
 </div>
-</script>
+
 </body>
 </html>

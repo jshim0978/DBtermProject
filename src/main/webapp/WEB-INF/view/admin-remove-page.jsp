@@ -19,6 +19,6 @@
         <input type="submit" value="Remove">
     </form>
 </div>
-</script>
+
 </body>
 </html>
