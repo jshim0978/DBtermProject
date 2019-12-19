@@ -39,7 +39,7 @@
         <td class="ex1">Available</td>
         </thead>
         <tbody>
-        <c:forEach var="books" items="${books}">
+        <c:forEach var="book" items="${books}">
             <c:url var="borrowLink" value="/book/makeBorrow">
                 <c:param name="idBooks" value="${book.idBooks}"/>
                 <c:param name="bookName" value="${book.bookName}"/>
@@ -53,7 +53,7 @@
                 <td class="ex2">${book.bookName}</td>
                 <td class="ex2">${book.bookAuthor}</td>
                 <td class="ex2">${book.bookPublisher}</td>
-                <td class="borrow">${book.isBorrow}</td>
+
                 <td>
 
                     <a href="${borrowLink}"

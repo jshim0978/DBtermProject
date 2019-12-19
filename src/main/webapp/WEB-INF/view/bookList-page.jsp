@@ -40,6 +40,6 @@
         </div>
     </c:forEach>
 </div>
-</script>
+
 </body>
 </html>

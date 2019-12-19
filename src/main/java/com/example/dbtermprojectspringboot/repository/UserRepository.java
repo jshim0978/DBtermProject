@@ -34,9 +34,9 @@ public class UserRepository {
         );
     }
 
-    public User getUserObjById(String userId){
+    public User getUserObjById(String userID){
         return this.jdbcTemplate.queryForObject(
-                "select * from user c where c.userID=?",
+                "select * from user where userID=?",
                 (rs, rowNum)->
                     new User(rs.getString("userID"),
                             rs.getString("userPwd"),
@@ -45,7 +45,7 @@ public class UserRepository {
                             rs.getString("userPhone"),
                             rs.getString("userType"))
                 ,
-                userId
+                userID
         );
     }
 
