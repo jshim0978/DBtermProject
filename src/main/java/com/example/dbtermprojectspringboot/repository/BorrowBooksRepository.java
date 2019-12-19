@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class BorrowBooksRepository {
 
@@ -35,14 +37,32 @@ public class BorrowBooksRepository {
         return this.jdbcTemplate.queryForObject(
                 "select * from borrowbooks c where c.idborrowBooks=?",
                 (rs, rowNum)->
-                        new BorrowBooks(rs.getString("idborrowBooks"),
-                                rs.getString("idBooks"),
+                        new BorrowBooks(rs.getInt("idborrowBooks"),
+                                rs.getInt("idBooks"),
                                 rs.getString("userID"),
                                 rs.getString("borrowedDate"),
                                 rs.getString("expectedReturn"),
                                 rs.getString("isReturned"))
                 ,
                 idborrowBooks
+        );
+    }
+
+    public List<BorrowBooks> takeAllReturnBooks() {
+        return this.jdbcTemplate.query(
+                //TODO: join
+//                "select bb.idborrowBooks, bb.idBooks, bb.userID, bb.borrowedDate, bb.expectedReturn, bb.isReturned" +
+//                        "from borrowbooks as bb" +
+//                        "join returnapplication as ra" +
+//                        "where bb.idborrowBooks = ra.idborrowBooks",
+                "select * from borrowbooks",
+                (rs, rowNum) -> new BorrowBooks(
+                        rs.getInt("borrowbooks.idborrowBooks"),
+                        rs.getInt("borrowbooks.idBooks"),
+                        rs.getString("borrowbooks.userID"),
+                        rs.getString("borrowbooks.borrowedDate"),
+                        rs.getString("borrowbooks.expectedReturn"),
+                        rs.getString("borrowbooks.isReturned"))
         );
     }
 }

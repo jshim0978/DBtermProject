@@ -2,14 +2,16 @@ package com.example.dbtermprojectspringboot.controller;
 
 import com.example.dbtermprojectspringboot.domain.Book;
 import com.example.dbtermprojectspringboot.repository.AdminRepository;
+import com.example.dbtermprojectspringboot.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@SpringBootApplication(scanBasePackages = {"com.example.dbtermprojectspringboot.repository.AdminRepository"})
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -22,10 +24,26 @@ public class AdminController {
         return "error/error-page";
     }
 
+
+    @Autowired
+    private BookRepository bookRepository;
+
     @GetMapping("/main")
-    public String adminMainPage() {
+    public String bookListPage(Model model) {
+        try {
+            List<Book> result = this.bookRepository.takeAllBooks();
+            model.addAttribute("books", result);
+        } catch (Exception e) {
+            model.addAttribute("books", new ArrayList<>());
+        }
+
         return "admin-main-page";
     }
+
+//    @GetMapping("/main")
+//    public String adminMainPage() {
+//        return "admin-main-page";
+//    }
 
     @GetMapping("/enrollPage")
     public String enrollPage() {
@@ -50,7 +68,7 @@ public class AdminController {
 
     //modify book info
     @GetMapping("/modifyPage")
-    public String modifyPage() {
+    public String modifyPage(@RequestParam("idBooks") int idBooks) {
         return "admin-modify-page";
     }
 
