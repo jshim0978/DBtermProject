@@ -28,7 +28,7 @@ public class BookController {
             model.addAttribute("books", new ArrayList<>());
         }
 
-        return "bookList";
+        return "bookList-page";
     }
 
 //    @GetMapping("/addBooks") // db접근 전용 post/get
