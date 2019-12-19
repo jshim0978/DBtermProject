@@ -2,14 +2,13 @@ package com.example.dbtermprojectspringboot.controller;
 
 import com.example.dbtermprojectspringboot.domain.Book;
 import com.example.dbtermprojectspringboot.domain.User;
+import com.example.dbtermprojectspringboot.repository.AdminRepository;
 import com.example.dbtermprojectspringboot.repository.BookRepository;
 import com.example.dbtermprojectspringboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,6 +23,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
     private BookRepository bookRepository;
+    private AdminRepository adminRepository;
 
     @GetMapping("/main")
     public String main(Model model, HttpServletRequest request) {
@@ -107,6 +107,18 @@ public class UserController {
 
         }
         return "user-register-page"; //여기 페이지로 이동
+    }
+
+    @GetMapping("/removeUser")
+    public String removeUser(@RequestParam("userID") String userID) {
+        try {
+            if (this.adminRepository.removeUser(userID) != 0) {
+                return "redirect:/user/register"; // 여기 페이지로 이동
+            }
+        } catch (Exception e) {
+            return "redirect:/admin/errorPage"; //여기 페이지로 이동
+        }
+        return "redirect:/admin/errorPage"; //여기 페이지로 이동
     }
 }
 //@GetMapping("/register")

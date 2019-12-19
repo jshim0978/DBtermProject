@@ -36,6 +36,7 @@
     <button onclick="location='/book/allBookListPage'">all books</button>
     <input type="button" onclick="goToSearchBookPage()" name="search" value="search book">
 </div>
+</br>
 <%-- move to search book page --%>
 <div class="ex1">
     <span>도서대출목록</span>
@@ -100,6 +101,7 @@
     </table>
 
     <input type="button" onclick="logout()" value="로그아웃"/>
+    <input type="button" onclick="deleteAccount()" value="탈퇴"/>
 </div>
 <script type="text/javascript" src="/resources/js/user-main.js">
 </script>

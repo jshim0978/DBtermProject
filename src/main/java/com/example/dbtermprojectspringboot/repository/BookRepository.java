@@ -52,4 +52,9 @@ public class BookRepository {
                         rs.getString("bookPublisher"))
         );
     }
+
+    public Book searchBookByIsbn(int data) {
+        return null;
+    }
+
 }

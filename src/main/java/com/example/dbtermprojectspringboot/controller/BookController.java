@@ -66,7 +66,6 @@ public class BookController {
                 books.add(resultBook);
             }
         } else {
-
             books = this.bookRepository.searchBookByTitle(data);
         }
         model.addAttribute("books", books);
@@ -81,7 +80,7 @@ public class BookController {
             @RequestParam("bookName") String bookName,
             @RequestParam("bookPublisher") String bookPublisher) {
         try {
-            if (this.save(new Books(idBooks, bookAuthor, bookName, bookPublisher)) != 0) {
+            if (this.bookRepository.save(new Books(idBooks, bookAuthor, bookName, bookPublisher)) != 0) {
                 return "redirect:/user/bookList"; // 여기 페이지로 이동
             }
         } catch (Exception e) {
