@@ -1,13 +1,27 @@
 package com.example.dbtermprojectspringboot.domain;
 
 import java.util.Optional;
-
+import lombok.Builder;
+import lombok.Data;
+@Data
 public class Book {
     private int idBooks;
     private String bookAuthor;
     private String bookName;
     private String bookPublisher;
 
+//    public Book(int idBooks, String bookAuthor, String bookName, String bookPublisher) {
+//        this.idBooks = idBooks;
+//        this.bookAuthor = bookAuthor;
+//        this.bookName = bookName;
+//        this.bookPublisher = bookPublisher;
+//    }
+
+    public Book() {
+
+    }
+
+    @Builder
     public Book(int idBooks, String bookAuthor, String bookName, String bookPublisher) {
         this.idBooks = idBooks;
         this.bookAuthor = bookAuthor;

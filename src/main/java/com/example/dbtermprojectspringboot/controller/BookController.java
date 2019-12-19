@@ -2,8 +2,10 @@ package com.example.dbtermprojectspringboot.controller;
 
 import com.example.dbtermprojectspringboot.domain.Book;
 import com.example.dbtermprojectspringboot.repository.BookRepository;
+import com.example.dbtermprojectspringboot.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,8 @@ public class BookController {
 
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private BookService bookService;
 
     @GetMapping("/allBookListPage")
     public String bookListPage(Model model) {
@@ -48,26 +52,32 @@ public class BookController {
 
 
     @GetMapping("/bookSearchResult")
-    public String bookSearchResult(@RequestParam("type") String type
-            , @RequestParam("data") String data
-            , Model model, HttpSession httpSession) {
+    public String bookSearchResult(
+            @RequestParam("type") String type,
+            @RequestParam("data") String data,
+            Model model,
+            HttpSession httpSession) {
+
+
         Object id = httpSession.getAttribute("id");
 
         if (id == null) {
-            return "redirect:../user/error-page";
+            return "redirect:/user/error-page";
         }
 
         List<Book> books;
-        if (type.equals("idBooks")) {
+        if (type.equals("isbn")) {
             int intData = Integer.parseInt(data);
-            Book resultBook = this.bookRepository.searchBookByIsbn(intData);
+            System.out.println(type + intData);
+            Book resultBook = this.bookService.searchBookByIsbn(intData);
+
             books = new ArrayList<>();
+            System.out.println(resultBook);
             if (resultBook != null) {
                 books.add(resultBook);
             }
         } else {
-
-            books = this.bookRepository.searchBookByTitle(data);
+            books = this.bookService.searchBookByTitle(data);
         }
         model.addAttribute("books", books);
 
@@ -89,5 +99,19 @@ public class BookController {
 
         }
         return "redirect:/user/errorPage"; //여기 페이지로 이동
+    }
+
+    @GetMapping("/makeReservation")
+    public String makeReservation(@RequestParam("bookIsbn") String isbn,
+                                  HttpSession httpSession) {
+        Object id = httpSession.getAttribute("id");
+        if (id == null) {
+            return "redirect:../user/loginError";
+        }
+        if (this.bookRepository.insertReservation((String) id, isbn) != 0) {
+            return "redirect:bookSearchPage";
+        }
+        // 실패
+        return "redirect:borrowErrorHandlerPage";
     }
 }
