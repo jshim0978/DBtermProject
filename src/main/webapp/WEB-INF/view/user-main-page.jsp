@@ -13,14 +13,14 @@
 <html>
 <head>
     <style>
-        span{
+        span {
             font: bold 20px/5px Georgia, serif;
             color: Navy;
         }
-        .ex1{
+        .ex1 {
             border-radius: 25px;
             border: 2px solid lightseagreen;
-            padding:10px;
+            padding: 10px;
 
         }
 
@@ -77,24 +77,24 @@
         </tr>
         </thead>
         <tbody>
-<%--        <c:forEach var="reservation" items="${reservations}">--%>
-<%--            <c:url var="cancealLink" value="/book/removereservationPage">--%>
-<%--                <c:param name="bookIsbn" value="${reservation.isbn}"/>--%>
-<%--            </c:url>--%>
-<%--            <c:url var="borrowLink" value="/book/borrowBookPage">--%>
-<%--                <c:param name="bookIsbn" value="${reservation.isbn}"/>--%>
-<%--                <c:param name="bookTitle" value="${reservation.title}"/>--%>
-<%--            </c:url>--%>
-<%--            <tr>--%>
-<%--                <td>${reservation.isbn}</td>--%>
-<%--                <td>${reservation.reservDate}</td>--%>
-<%--                <td>${reservation.title}</td>--%>
-<%--                <td class="lastPerson">${reservation.numberOfRestPerson}</td>--%>
-<%--                <td class="borrow">${reservation.isBorrow}</td>--%>
-<%--                <td><a href="${cancealLink}" onclick="cancealReservation()">예약 취소</a></td>--%>
-<%--                <td><a href="${borrowLink}" onclick="borrowAtReturnBook(event)">대여</a></td>--%>
-<%--            </tr>--%>
-<%--        </c:forEach>--%>
+        <%--        <c:forEach var="reservation" items="${reservations}">--%>
+        <%--            <c:url var="cancealLink" value="/book/removereservationPage">--%>
+        <%--                <c:param name="bookIsbn" value="${reservation.isbn}"/>--%>
+        <%--            </c:url>--%>
+        <%--            <c:url var="borrowLink" value="/book/borrowBookPage">--%>
+        <%--                <c:param name="bookIsbn" value="${reservation.isbn}"/>--%>
+        <%--                <c:param name="bookTitle" value="${reservation.title}"/>--%>
+        <%--            </c:url>--%>
+        <%--            <tr>--%>
+        <%--                <td>${reservation.isbn}</td>--%>
+        <%--                <td>${reservation.reservDate}</td>--%>
+        <%--                <td>${reservation.title}</td>--%>
+        <%--                <td class="lastPerson">${reservation.numberOfRestPerson}</td>--%>
+        <%--                <td class="borrow">${reservation.isBorrow}</td>--%>
+        <%--                <td><a href="${cancealLink}" onclick="cancealReservation()">예약 취소</a></td>--%>
+        <%--                <td><a href="${borrowLink}" onclick="borrowAtReturnBook(event)">대여</a></td>--%>
+        <%--            </tr>--%>
+        <%--        </c:forEach>--%>
         </tbody>
     </table>
 
