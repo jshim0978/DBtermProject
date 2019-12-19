@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class AdminRepository {
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -14,9 +15,9 @@ public class AdminRepository {
         return this.jdbcTemplate.update(
                 "insert books values(?,?,?,?)",
                 new Object[]{book.getIdBooks(),
-                book.getBookAuthor(),
-                book.getBookName(),
-                book.getBookPublisher()
+                        book.getBookAuthor(),
+                        book.getBookName(),
+                        book.getBookPublisher()
                 }
         );
     }
