@@ -16,6 +16,13 @@ function logout() {
     location.href = "/user/logoutPage";// 위치 지정
 }
 
+function deleteAccount() {
+    if (!(confirm("탈퇴 하시겠습니까?"))) {
+        return false;
+    }
+    location.href = "/user/delete";
+}
+
 function requestReturn() {
     if (!(confirm("반납요청을 하시겠습니까?"))) {
         return false;
