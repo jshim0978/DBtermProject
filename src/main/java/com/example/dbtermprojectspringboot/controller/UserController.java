@@ -28,9 +28,9 @@ public class UserController {
         return "error/error-page";
     }
 
-    @GetMapping("/userPage")
-    public String userMainPage() {
-        return "user-main-page"; //jsp  이름으로만 하기
+    @GetMapping("/register")
+    public String userRegisterPage() {
+        return "user-register-page"; //jsp  이름으로만 하기
     } // web 띄우는 거 전용
 
     @GetMapping("/loginPage")

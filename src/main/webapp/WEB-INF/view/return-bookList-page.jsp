@@ -12,18 +12,20 @@
 <div id="container">
     <h3> booklist</h3>
 <%--    delete link, update link url 변경해야함--%>
-    <c:forEach var="book" items="${books}">
+    <c:forEach var="borrowbooks" items="${borrowbooks}">
         <c:url var="deleteLink" value="/book/변경해야함">
-            <c:param name="idBooks" value="${book.idBooks}"/>
+            <c:param name="idBooks" value="${borrowbooks.idBooks}"/>
         </c:url>
         <c:url var="updateLink" value="/book/takeAllReturnBooks">
-            <c:param name="idBooks" value="${book.idBooks}"/>
+            <c:param name="idBooks" value="${borrowbooks.idBooks}"/>
         </c:url>
         <div>
-            <span>${book.idBooks}</span>
-            <span>${book.bookAuthor}</span>
-            <span>${book.bookName} </span>
-            <span>${book.bookPublisher}</span>
+            <span>${borrowbooks.idborrowBooks}</span>
+            <span>${borrowbooks.idBooks}</span>
+            <span>${borrowbooks.userID}</span>
+            <span>${borrowbooks.borrowedDate} </span>
+            <span>${borrowbooks.expectedReturn}</span>
+            <span>${borrowbooks.isReturned}</span>
             <span>
                 <a href="${deleteLink}"
                    onclick="if (!(confirm('책을 목록에서 삭제 하시겠습니까?'))) return false">제거</a>
@@ -34,7 +36,6 @@
         </div>
     </c:forEach>
 </div>
-<script type="text/javascript" src="/resources/js/login-page.js">
 </script>
 </body>
 </html>

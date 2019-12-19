@@ -1,8 +1,8 @@
 package com.example.dbtermprojectspringboot.domain;
 
 public class BorrowBooks {
-    private String idborrowBooks;
-    private String idBooks;
+    private int idborrowBooks;
+    private int idBooks;
     private String userID;
     private String borrowedDate;
     private String expectedReturn;
@@ -11,7 +11,7 @@ public class BorrowBooks {
     public BorrowBooks() {
     }
 
-    public BorrowBooks(String idborrowBooks, String idBooks, String userID, String borrowedDate, String expectedReturn, String isReturned) {
+    public BorrowBooks(int idborrowBooks, int idBooks, String userID, String borrowedDate, String expectedReturn, String isReturned) {
         this.idborrowBooks = idborrowBooks;
         this.idBooks = idBooks;
         this.userID = userID;
@@ -20,11 +20,11 @@ public class BorrowBooks {
         this.isReturned = isReturned;
     }
 
-    public String getIdborrowBooks() {
+    public int getIdborrowBooks() {
         return idborrowBooks;
     }
 
-    public String getIdBooks() {
+    public int getIdBooks() {
         return idBooks;
     }
 
@@ -44,11 +44,11 @@ public class BorrowBooks {
         return isReturned;
     }
 
-    public void setIdborrowBooks(String idborrowBooks) {
+    public void setIdborrowBooks(int idborrowBooks) {
         this.idborrowBooks = idborrowBooks;
     }
 
-    public void setIdBooks(String idBooks) {
+    public void setIdBooks(int idBooks) {
         this.idBooks = idBooks;
     }
 
