@@ -5,13 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class BookRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    private BookRepository  bookRepository;
     public int save(Book book) {
         return this.jdbcTemplate.update(
                 "insert book values(?,?,?,?,?,?)",
@@ -42,6 +45,7 @@ public class BookRepository {
         );
     }
 
+
     public List<Book> takeAllBooks() {
         return this.jdbcTemplate.query(
                 "select * from books",
@@ -50,6 +54,59 @@ public class BookRepository {
                         rs.getString("bookAuthor"),
                         rs.getString("bookName"),
                         rs.getString("bookPublisher"))
+        );
+    }
+
+    public List<Book> takeUserBooks(String userID)
+    {
+        //todo
+        return this.jdbcTemplate.query(
+                "select * from books where books.idBooks = ?",
+                (rs, rowNum) -> new Book(
+                        rs.getInt("idBooks"),
+                        rs.getString("bookAuthor"),
+                        rs.getString("bookName"),
+                        rs.getString("bookPublisher"))
+        );
+    }
+
+    public Book searchBookByIsbn(int idBooks) {
+        Book book;
+        try {
+            book = this.bookRepository.searchByIsbn(idBooks);
+        } catch (Exception e) {
+            book =null;
+        }
+
+        return null;
+    }
+    public Book searchByIsbn(int isbn) throws Exception{
+        return this.jdbcTemplate.queryForObject(
+                "select * from books where idBooks=?",
+                (rs, rowNum) -> new Book(
+                        rs.getInt("idBooks"),
+                        rs.getString("bookAuthor"),
+                        rs.getString("bookName"),
+                        rs.getString("bookPublisher"))
+        );
+    }
+
+    public List<Book> searchBookByTitle(String bookTitle) {
+        try{
+            return this.bookRepository.searchByTitle(bookTitle);
+        } catch(Exception e){
+            return new ArrayList<Book>();
+        }
+    }
+
+    public List<Book> searchByTitle(String bookName) throws Exception{
+        return this.jdbcTemplate.query(
+                "select * from books where bookName=" + "'" + bookName + "'",//sql문
+                (rs, rowNum) -> new Book(
+                                rs.getInt("idBooks"),
+                                rs.getString("bookAuthor"),
+                                rs.getString("bookName"),
+                                rs.getString("bookPublisher"))
         );
     }
 }
